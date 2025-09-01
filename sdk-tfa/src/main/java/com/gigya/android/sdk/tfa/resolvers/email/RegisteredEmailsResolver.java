@@ -83,7 +83,7 @@ public class RegisteredEmailsResolver<A extends GigyaAccount> extends TFAResolve
     private void fetchEmails(@NonNull final ResultCallback resultCallback) {
         final Map<String, Object> params = new HashMap<>();
         params.put("gigyaAssertion", _gigyaAssertion);
-        _businessApiService.send(GigyaDefinitions.API.API_TFA_EMAIL_GET_EMAILS, params, RestAdapter.GET,
+        _businessApiService.send(GigyaDefinitions.API.API_TFA_EMAIL_GET_EMAILS, params, RestAdapter.POST,
                 GetEmailsModel.class, new GigyaCallback<GetEmailsModel>() {
                     @Override
                     public void onSuccess(GetEmailsModel model) {
