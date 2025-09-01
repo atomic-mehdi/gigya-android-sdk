@@ -1,6 +1,11 @@
 # SAP CDC (Gigya) Android SDK
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/gigya-android-sdk)](https://api.reuse.software/info/github.com/SAP/gigya-android-sdk)
 
+## Atomic Changes vs. Original Repo
+
+This fork contains a bug fix that prevents the Gigya SDK from dropping query parameters
+when making the `accounts.tfa.email.getEmails` call to Gigya
+
 ## Description
 The Android SDK provides an interface for the Gigya API.
 The library makes it simple to integrate Gigya's service in your Android application.
