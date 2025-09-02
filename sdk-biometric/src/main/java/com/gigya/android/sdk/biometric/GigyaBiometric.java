@@ -32,9 +32,11 @@ public class GigyaBiometric {
 
             container.bind(GigyaBiometric.class, GigyaBiometric.class, true);
 
+            var biometricImpl = GigyaBiometricUtils.isPromptEnabled() ? BiometricImplV28.class : BiometricImplV23.class;
+
             // Set the relevant biometric implementation according to Android API level.
             container.bind(BiometricImpl.class,
-                    GigyaBiometricUtils.isPromptEnabled() ? BiometricImplV28.class : BiometricImplV23.class,
+                    biometricImpl,
                     true);
 
             try {
