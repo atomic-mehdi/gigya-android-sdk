@@ -1,0 +1,51 @@
+name: Sync with Base
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+jobs:
+  sync-with-base:
+    name: Sync with Base
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch base
+        run: |
+          git remote add base https://github.com/SAP/gigya-android-sdk.git
+          git fetch base main
+
+      - name: Check if fork is out-of-date
+        run: |
+          commits_ahead=$(git rev-list --left-right --count origin/main...base/main | awk '{print $2}')
+          if [[ "$commits_ahead" == "0" ]]; then
+            echo "Fork is already in sync with base"
+            exit 0
+          fi
+
+          echo "Fork is behind the base repo"
+          echo "should_sync_with_base=true" >> "$GITHUB_ENV"
+
+      - name: Create sync-with-base branch if missing
+        if: env.should_sync_with_base == 'true'
+        run: |
+          # exits 0 if sync-with-base already exists, without outputting to console
+  
+          if git ls-remote --heads --exit-code origin sync-with-base > /dev/null; then
+            echo "'sync-with-base' branch already exists"
+          else 
+            echo "HIT1"
+            git branch sync-with-base base/main
+            git branch
+            echo "HIT2"
+            git push -u origin sync-with-base --verbose
+            echo "HIT3"
+            echo "Created branch 'sync-with-base'"
+          fi
+
+      # # TODO
+      # - name: Sync sync-with-base branch
+
+      # # TODO
+      # - name: Create Sync PR
