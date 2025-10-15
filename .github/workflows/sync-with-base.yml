@@ -1,5 +1,7 @@
 name: Sync with Base
-on: push
+on:
+  push:
+  workflow_dispathch:
 
 jobs:
   sync-with-base:
