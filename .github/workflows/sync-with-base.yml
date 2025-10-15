@@ -57,7 +57,7 @@ jobs:
         run: |
           pr_list_message=$(gh pr list --head sync-with-base --base main)
           if [[ -z "$pr_list_message" ]]; then
-              gh pr create --head sync-with-base --base main --title "Sync Fork with Upstream Repository" --body ""
+              gh pr create --head sync-with-base --base main --title "Sync Fork with Base Repository" --body ""
               echo "Created new sync PR"
           else 
               echo "PR already exists"
