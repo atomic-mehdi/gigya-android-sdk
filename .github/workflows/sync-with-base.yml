@@ -39,7 +39,7 @@ jobs:
 
       - name: Sync sync-with-base branch
         run: |
-          sync_commits_ahead=$(git rev-list --left-right --count origin/sync-with-base...upstream/main | awk '{print $2}')
+          sync_commits_ahead=$(git rev-list --left-right --count origin/sync-with-base...base/main | awk '{print $2}')
           if [[ "$sync_commits_ahead" -ne 0 ]]; then
               git fetch base main:sync-with-base
               git push origin sync-with-base
