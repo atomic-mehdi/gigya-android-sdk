@@ -1,7 +1,7 @@
 name: Sync with Base
 on:
   push:
-  workflow_dispathch:
+  workflow_dispatch:
 
 jobs:
   sync-with-base:
