@@ -39,11 +39,12 @@ jobs:
 
       - name: Sync sync-with-base branch
         run: |
+          git fetch origin sync-with-base
           sync_commits_ahead=$(git rev-list --left-right --count origin/sync-with-base...base/main | awk '{print $2}')
           if [[ "$sync_commits_ahead" -ne 0 ]]; then
               git fetch base main:sync-with-base
               git push origin sync-with-base
-              echo "'sync-with-baser' updated with base repo"
+              echo "'sync-with-base' updated with base repo"
           else 
               echo "'sync-with-base' already up-to-date"
           fi
