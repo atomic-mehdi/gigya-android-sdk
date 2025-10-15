@@ -35,17 +35,21 @@ jobs:
           if git ls-remote --heads --exit-code origin sync-with-base > /dev/null; then
             echo "'sync-with-base' branch already exists"
           else 
-            echo "HIT1"
             git branch sync-with-base base/main
-            git branch
-            echo "HIT2"
             git push -u origin sync-with-base --verbose
-            echo "HIT3"
             echo "Created branch 'sync-with-base'"
           fi
 
-      # # TODO
-      # - name: Sync sync-with-base branch
+      - name: Sync sync-with-base branch
+        run: |
+          sync_commits_ahead=$(git rev-list --left-right --count origin/sync-with-upstream-pr...upstream/main | awk '{print $2}')
+          if [[ "$sync_commits_ahead" -ne 0 ]]; then
+              git fetch upstream main:sync-with-upstream-pr
+              git push origin sync-with-upstream-pr
+              echo "'sync-with-upsteam-pr' updated with base repo"
+          else 
+              echo "'sync-with-upsteam-pr' already up-to-date"
+          fi
 
-      # # TODO
+      # TODO
       # - name: Create Sync PR
