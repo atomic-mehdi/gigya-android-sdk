@@ -5,6 +5,8 @@ jobs:
   sync-with-base:
     name: Sync with Base
     runs-on: ubuntu-22.04
+    env:
+      GH_TOKEN: ${{ secrets.PAT_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
